@@ -20,3 +20,7 @@ const numToTime = num => {
   }
   return curTime;
 };
+
+const timeToString = (time, idx) => {
+
+}

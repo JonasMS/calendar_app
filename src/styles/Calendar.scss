@@ -1,7 +1,8 @@
 .table-container {
-  height: 720px;
+  height: 700px;
   width: 700px;
   margin: 0 auto;
+  padding: 10px 0;
 }
 
 table {
@@ -16,7 +17,7 @@ tr {
 }
 
 td {
-  height: 30px;
+  height: 28px;
   padding: 0;
 
   &.time-field {

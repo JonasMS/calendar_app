@@ -12,7 +12,7 @@ class Calendar extends Component {
   }
 
   renderRows(times) {
-    times.map((time, idx) => (
+    return times.map((time, idx) => (
       <CalRow
         time={this.props.formatTime(time, idx)}
         id={this.props.formatId(time, idx)}
@@ -22,6 +22,7 @@ class Calendar extends Component {
   }
 
   render() {
+    console.log('Calendar: ', this.state);
     return (
       <table>
         <tbody>

@@ -34,9 +34,9 @@ class App extends Component {
   formatTime(time, idx) {
     // if idx is odd, include MA
     return idx % 2 === 0 ?
-      `${time.hour}:${time.min} ${time.meridien}`
+      `${time.hour}:${time.min > 0 ? time.min : "00" } ${time.meridiem}`
       :
-      `${time.hour}:${time.min}`;
+      `${time.hour}:${time.min > 0 ? time.min : "00"}`;
   }
 
   formatId(time, idx) {

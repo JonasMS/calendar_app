@@ -14,6 +14,7 @@ export const numToTime = num => {
   }
 
   curTime.hour += addedTimeHour;
+
   if (curTime.hour >= 12) {
     curTime.meridiem = curTime.meridiem === "AM" ? "PM" : "AM";
     curTime.hour -= curTime.hour > 12 ? 12: 0;

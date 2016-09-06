@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import CalRow from "./CalRow";
+import "../styles/Calendar.scss";
 
 class Calendar extends Component {
   constructor(props) {
@@ -24,11 +25,13 @@ class Calendar extends Component {
   render() {
     console.log('Calendar: ', this.state);
     return (
-      <table>
-        <tbody>
-          {this.renderRows(this.props.times)}
-        </tbody>
-      </table>
+      <div className="table-container">
+        <table>
+          <tbody>
+            {this.renderRows(this.props.times)}
+          </tbody>
+        </table>
+      </div>
     );
   }
 }

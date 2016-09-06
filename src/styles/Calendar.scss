@@ -1,0 +1,30 @@
+.table-container {
+  height: 720px;
+  width: 700px;
+  margin: 0 auto;
+}
+
+table {
+  width: 100%;
+  border-spacing: 0;
+  border-collapse: collapse;
+}
+
+tr {
+  width: 100%;
+
+}
+
+td {
+  height: 30px;
+  padding: 0;
+
+  &.time-field {
+    width: 80px;
+  }
+
+  &.event-field {
+    width: 620px;
+    background-color: gray;
+  }
+}

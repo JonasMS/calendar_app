@@ -16,6 +16,7 @@ class Calendar extends Component {
     this.addRowRef = this.addRowRef.bind(this);
     // this.setCalElement = this.setCalElement.bind(this);
     this.rowRefs = [];
+    this._tbody = null;
     // this.calElement = null;
   }
 
@@ -28,7 +29,7 @@ class Calendar extends Component {
       <CalRow
         time={this.props.formatTime(time, idx)}
         id={this.props.formatId(time, idx)}
-        addRowRef={this.addRowRef}
+        addRowRef={row => this.rowRefs.push(row)}
         key={idx}
       />
     ));
@@ -46,11 +47,11 @@ class Calendar extends Component {
 
   render() {
     console.log('Calendar: ', this.state);
-    const { times, formatTime, formatId } = this.props;
+    const { times, events, formatTime, formatId } = this.props;
     return (
       <div className="table-container">
         <table>
-          <tbody>
+          <tbody ref={el => this._tbody = el}>
             {this.renderRows(times.slice(0, times.length - 1))}
           </tbody>
           <tfoot>
@@ -62,10 +63,14 @@ class Calendar extends Component {
           </tfoot>
         </table>
         {
-          (this.rowRefs.length) ?
-            console.log('RowRefs: ', this.rowRefs) : console.log("no refs")
-
-          }
+          (this.rowRefs.length && this._tbody) ?
+            <EventsContainer
+              events={events}
+              rowElements={this.rowRefs}
+              tbodyElement={this._tbody}
+            />
+            :
+            ""
         }
       </div>
     );

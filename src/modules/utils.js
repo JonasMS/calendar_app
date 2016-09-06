@@ -2,10 +2,10 @@ import { START_HOUR, START_MIN, START_MERIDIEM } from "../constants";
 
 // given a number 0 to 720, return an object
 // representing the corresponding time
-const numToTime = num => {
+export const numToTime = num => {
   const curTime = { hour: START_HOUR, min: START_MIN, meridiem: START_MERIDIEM };
-  const addedTimeHour = Math.floor(num / 60);
-  const addedTimeMin = num % 60;
+  let addedTimeHour = Math.floor(num / 60);
+  let addedTimeMin = num % 60;
 
   curTime.min += addedTimeMin;
   if (curTime.min >= 60) {
@@ -21,6 +21,6 @@ const numToTime = num => {
   return curTime;
 };
 
-const timeToString = (time, idx) => {
+export const timeToString = (time, idx) => {
 
 }

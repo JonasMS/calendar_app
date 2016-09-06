@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import CalRow from "./CalRow";
 
 class Calendar extends Component {
   constructor(props) {
@@ -7,13 +8,14 @@ class Calendar extends Component {
       times: props.times,
       events: props.events,
     }
+    this.renderRows = this.renderRows.bind(this);
   }
 
   renderRows(times) {
     times.map((time, idx) => (
       <CalRow
-        time={props.formatTime(time, idx)}
-        id={props.formatId(time, idx)}
+        time={this.props.formatTime(time, idx)}
+        id={this.props.formatId(time, idx)}
         key={idx}
       />
     ));
@@ -23,7 +25,7 @@ class Calendar extends Component {
     return (
       <table>
         <tbody>
-
+          {this.renderRows(this.props.times)}
         </tbody>
       </table>
     );
@@ -32,13 +34,16 @@ class Calendar extends Component {
 
 Calendar.propTypes = {
   times: React.PropTypes.array,
-  events: React.PropTypes.array
+  events: React.PropTypes.array,
+  formatTime: React.PropTypes.func,
+  formatId: React.PropTypes.func,
 }
+
 Calendar.defaultProps = {
   times: [],
   events: [],
-  // create default functions
-  // for formatTime && formatId
+  formatTime: time => (typeof time === 'string' ? time : time.toString(10)),
+  formatId: time => (typeof time === 'string' ? time : time.toString(10)),
 }
 
 export default Calendar;

@@ -1,6 +1,15 @@
 import React, { Component } from "react";
 import Calendar from "./Calendar";
-import { END_TIME, INCREMENT } from "../constants";
+import {
+  START_HOUR,
+  START_MIN,
+  START_MERIDIEM,
+  END_HOUR,
+  END_MIN,
+  END_MERIDIEM,
+  END_TIME,
+  INCREMENT
+} from "../constants";
 import { numToTime, timeToString } from "../modules/";
 import "../styles/App.scss";
 
@@ -52,6 +61,9 @@ class App extends Component {
     return (
       <div className="App">
         <Calendar
+          startTime={{hour: START_HOUR, min: START_MIN, meridiem: START_MERIDIEM}}
+          endTime={{hour: END_HOUR, min: END_MIN, meridiem: END_MERIDIEM}}
+          invrement={INCREMENT}
           times={this.generateCalTimes()}
           events={this.state.events}
           formatTime={this.formatTime}

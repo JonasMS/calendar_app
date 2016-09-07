@@ -39,13 +39,17 @@ class Calendar extends Component {
       <CalRow
         time={this.props.formatTime(time, idx)}
         id={this.props.formatId(time, idx)}
-        addRowRef={row => this.rowRefs.push(row)}
+        addRowRef={row => this.addRowRef(row)}
         key={idx}
       />
     ));
   }
 
   addRowRef(rowRef) {
+    if (this.rowRefs.length >= this.times.length) {
+      this.rowRefs = [];
+    }
+
     this.rowRefs.push(rowRef);
   }
 
@@ -83,6 +87,7 @@ class Calendar extends Component {
             <CalRow
               time={formatTime(times[times.length - 1], times.length - 1)}
               id={formatId(times[times.length - 1], times.length - 1)}
+              addRowRef={row => this.addRowRef(row)}
               key={times.length - 1}
             />
           </tfoot>

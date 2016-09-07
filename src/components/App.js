@@ -46,7 +46,8 @@ class App extends Component {
 
   formatId(time, idx) {
     // return `${time.start}`;
-    return this.formatTime(time, 0);
+    return idx * INCREMENT;
+    // return this.formatTime(time, 0);
   }
 
   generateCalTimes() {

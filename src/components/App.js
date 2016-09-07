@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Calendar from "./Calendar";
 import { END_TIME, INCREMENT } from "../constants";
-import { numToTime } from "../modules/";
+import { numToTime, timeToString } from "../modules/";
 import "../styles/App.scss";
 
 class App extends Component {
@@ -32,15 +32,12 @@ class App extends Component {
   }
 
   formatTime(time, idx) {
-    // if idx is odd, include MA
-    return idx % 2 === 0 ?
-      `${time.hour}:${time.min > 0 ? time.min : "00" } ${time.meridiem}`
-      :
-      `${time.hour}:${time.min > 0 ? time.min : "00"}`;
+    return timeToString(time, idx % 2 === 0);
   }
 
   formatId(time, idx) {
-    return this.formatTime(time, 0);
+    return `${time.start}`;
+    // return this.formatTime(time, 0);
   }
 
   generateCalTimes() {

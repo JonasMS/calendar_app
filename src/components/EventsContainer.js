@@ -1,11 +1,24 @@
 import React from "react";
+import Event from "./Event";
 
-const EventsContainer = ({events, rowElements, tbodyElement}) => {
-  const { top, left, width } = rowElements[0].getBoundingClientRect();
-  const { height } = tbodyElement.getBoundingClientRect();
+const getEventStyle = (event, rowRefs) => {
+
+};
+
+const displayEvents = (events, rowRefs) => (
+  events.map(event => (
+    <Event info={event} style={getEventStyle(event, rowRefs)} />
+  ))
+);
+
+const EventsContainer = ({events, rowRefs, tbodyRef}) => {
+  const { top, left, width } = rowRefs[0].getBoundingClientRect();
+  // const realWidth = width - rowRefs[0].style.padding - rowRefs[0].style.margin
+  const { height } = tbodyRef.getBoundingClientRect();
   const style = {
     position: "absolute",
     padding: "0 10px",
+    zIndex: "100",
     top,
     left,
     height,
@@ -13,10 +26,8 @@ const EventsContainer = ({events, rowElements, tbodyElement}) => {
   };
 
   return (
-    <div
-      className="events-container"
-      style={style}
-    >
+    <div className="events-container" style={style}>
+      <Event style={{backgroundColor: "blue"}} />
     </div>
   );
 };

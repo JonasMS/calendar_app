@@ -24,6 +24,10 @@ class Calendar extends Component {
 
   }
 
+  componentWillReceiveProps(nextProps) {
+    this.setState({events: nextProps.events});
+  }
+
   renderRows(times) {
     return times.map((time, idx) => (
       <CalRow
@@ -66,8 +70,8 @@ class Calendar extends Component {
           (this.rowRefs.length && this._tbody) ?
             <EventsContainer
               events={events}
-              rowElements={this.rowRefs}
-              tbodyElement={this._tbody}
+              rowRefs={this.rowRefs}
+              tbodyRef={this._tbody}
             />
             :
             ""

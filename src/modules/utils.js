@@ -22,6 +22,6 @@ export const numToTime = num => {
   return curTime;
 };
 
-export const timeToString = (time, idx) => {
-
-}
+export const timeToString = (time, meridiem) => (
+  `${time.hour}:${time.min > 0 ? time.min : "00" } ${meridiem ? time.meridiem : ""}`
+);

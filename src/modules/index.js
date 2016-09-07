@@ -1,6 +1,8 @@
-import { numToTime, timeToString } from "./utils";
+import { numToTime, timeToString, occursBefore, addIncrement } from "./utils";
 
 export {
   numToTime,
   timeToString,
+  occursBefore,
+  addIncrement,
 };

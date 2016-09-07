@@ -2,7 +2,7 @@ import React from "react";
 import Event from "./Event";
 
 const getEventStyle = (event, rowRefs) => {
-
+  // const row = rowRefs.filter(row => row.dataset.data-time)
 };
 
 const displayEvents = (events, rowRefs) => (

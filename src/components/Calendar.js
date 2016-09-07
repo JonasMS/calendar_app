@@ -2,6 +2,7 @@ import React, { Component } from "react";
 // import CalTable from "./CalTable";
 import CalRow from "./CalRow";
 import EventsContainer from "./EventsContainer";
+import { occursBefore, addIncrement } from "../modules";
 
 import "../styles/Calendar.scss";
 
@@ -12,12 +13,17 @@ class Calendar extends Component {
       times: props.times,
       events: props.events,
     }
+    this.generateTimes = this.generateTimes.bind(this)
     this.renderRows = this.renderRows.bind(this);
     this.addRowRef = this.addRowRef.bind(this);
     // this.setCalElement = this.setCalElement.bind(this);
     this.rowRefs = [];
     this._tbody = null;
     // this.calElement = null;
+  }
+
+  componentWillMount() {
+    this.times = this.generateTimes();
   }
 
   componentDidMount() {
@@ -43,6 +49,19 @@ class Calendar extends Component {
     this.rowRefs.push(rowRef);
   }
 
+  generateTimes() {
+    const { startTime, endTime, increment } = this.props;
+    const times = [];
+    const amBeforePm = startTime.meridiem === "AM";
+    let curTime = Object.assign({}, startTime);
+
+    while (occursBefore(curTime, endTime, amBeforePm)) {
+      times.push(curTime);
+      curTime = addIncrement(curTime, increment);
+    }
+    return times;
+  }
+
   // setCalElement(el) {
   //   // debugger;
   //   console.log('CalTable: ', el);
@@ -51,7 +70,9 @@ class Calendar extends Component {
 
   render() {
     console.log('Calendar: ', this.state);
-    const { times, events, formatTime, formatId } = this.props;
+    console.log('TIMES: ', this.times);
+    const { times } = this;
+    const { events, formatTime, formatId } = this.props;
     return (
       <div className="table-container">
         <table>

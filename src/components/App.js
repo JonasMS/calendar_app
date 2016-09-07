@@ -45,8 +45,8 @@ class App extends Component {
   }
 
   formatId(time, idx) {
-    return `${time.start}`;
-    // return this.formatTime(time, 0);
+    // return `${time.start}`;
+    return this.formatTime(time, 0);
   }
 
   generateCalTimes() {
@@ -63,7 +63,7 @@ class App extends Component {
         <Calendar
           startTime={{hour: START_HOUR, min: START_MIN, meridiem: START_MERIDIEM}}
           endTime={{hour: END_HOUR, min: END_MIN, meridiem: END_MERIDIEM}}
-          invrement={INCREMENT}
+          increment={INCREMENT}
           times={this.generateCalTimes()}
           events={this.state.events}
           formatTime={this.formatTime}

@@ -5,4 +5,5 @@ export const START_MERIDIEM = "AM";
 export const END_HOUR = 9;
 export const END_MIN = 0;
 export const END_MERIDIEM = "PM";
+export const PIXELS_PER_MIN = 1;
 export const END_TIME = 720; // 12 hours at increments of 60 per hour

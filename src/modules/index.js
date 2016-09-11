@@ -1,8 +1,15 @@
-import { numToTime, timeToString, occursBefore, addIncrement } from "./utils";
-
-export {
-  numToTime,
+import {
   timeToString,
   occursBefore,
   addIncrement,
+  sortByStyle,
+  sortByStartTime,
+} from './utils';
+
+export {
+  timeToString,
+  occursBefore,
+  addIncrement,
+  sortByStyle,
+  sortByStartTime,
 };

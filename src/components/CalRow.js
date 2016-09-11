@@ -1,5 +1,5 @@
-import React from "react";
-import timeToString from "../modules/"
+import React from 'react';
+import timeToString from '../modules/'
 
 
 const CalRow = ({time, id, addRowRef}) => {

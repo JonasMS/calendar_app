@@ -1,12 +1,10 @@
-import React, { Component } from "react";
-// import CalTable from "./CalTable";
-import CalRow from "./CalRow";
-import EventsContainer from "./EventsContainer";
-import { occursBefore, addIncrement } from "../modules";
+import React, { Component } from 'react';
+import CalRow from './CalRow';
+import EventsContainer from './EventsContainer';
+import { occursBefore, addIncrement } from '../modules';
+import '../styles/Calendar.scss';
 
-import "../styles/Calendar.scss";
-
-class Calendar extends Component {
+export default class Calendar extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -14,20 +12,16 @@ class Calendar extends Component {
       events: props.events,
     }
     this.generateTimes = this.generateTimes.bind(this)
+    this.getPixelsPerMin = this.getPixelsPerMin.bind(this);
     this.renderRows = this.renderRows.bind(this);
     this.addRowRef = this.addRowRef.bind(this);
-    // this.setCalElement = this.setCalElement.bind(this);
-    this.rowRefs = [];
-    this._tbody = null;
-    // this.calElement = null;
+    this._rows = [];
+    this._tbody;
+    this.times;
   }
 
   componentWillMount() {
     this.times = this.generateTimes();
-  }
-
-  componentDidMount() {
-
   }
 
   componentWillReceiveProps(nextProps) {
@@ -45,12 +39,13 @@ class Calendar extends Component {
     ));
   }
 
-  addRowRef(rowRef) {
-    if (this.rowRefs.length >= this.times.length) {
-      this.rowRefs = [];
-    }
 
-    this.rowRefs.push(rowRef);
+  // add reference to a row to collection
+  addRowRef(_row) {
+    if (this._rows.length >= this.times.length) {
+      this._rows = [];
+    }
+    this._rows.push(_row);
   }
 
   generateTimes() {
@@ -66,15 +61,12 @@ class Calendar extends Component {
     return times;
   }
 
-  // setCalElement(el) {
-  //   // debugger;
-  //   console.log('CalTable: ', el);
-  // }
-
+  getPixelsPerMin(row) {
+    const { height } = row.getBoundingClientRect();
+    return height / this.props.increment;
+  }
 
   render() {
-    console.log('Calendar: ', this.state);
-    console.log('TIMES: ', this.times);
     const { times } = this;
     const { events, formatTime, formatId } = this.props;
     return (
@@ -93,11 +85,12 @@ class Calendar extends Component {
           </tfoot>
         </table>
         {
-          (this.rowRefs.length && this._tbody) ?
+          (this._rows.length && this._tbody) ?
             <EventsContainer
               events={events}
-              rowRefs={this.rowRefs}
-              tbodyRef={this._tbody}
+              _row={this._rows[0]}
+              _tbody={this._tbody}
+              _pixelsPerMin={this.getPixelsPerMin(this._rows[0])}
             />
             :
             ""
@@ -108,17 +101,19 @@ class Calendar extends Component {
 }
 
 Calendar.propTypes = {
-  times: React.PropTypes.array,
+  startTime: React.PropTypes.object,
+  endTime: React.PropTypes.object,
+  increment: React.PropTypes.number,
   events: React.PropTypes.array,
   formatTime: React.PropTypes.func,
   formatId: React.PropTypes.func,
 }
 
 Calendar.defaultProps = {
-  times: [],
+  startTime: { hour: 0, min: 0, meridiem: "AM" },
+  endTime: { hour: 11, min: 59, meridiem: "PM" },
+  increment: 30,
   events: [],
   formatTime: time => (typeof time === 'string' ? time : time.toString(10)),
   formatId: time => (typeof time === 'string' ? time : time.toString(10)),
 }
-
-export default Calendar;

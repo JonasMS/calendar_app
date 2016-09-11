@@ -1,40 +1,19 @@
-import { START_HOUR, START_MIN, START_MERIDIEM } from "../constants";
+// === Time Utils ===
 
-// given a number 0 to 720, return an object
-// representing the corresponding time
-export const numToTime = num => {
-  const curTime = { hour: START_HOUR, min: START_MIN, meridiem: START_MERIDIEM };
-  let addedTimeHour = Math.floor(num / 60);
-  let addedTimeMin = num % 60;
-
-  curTime.min += addedTimeMin;
-  if (curTime.min >= 60) {
-    addedTimeHour++;
-    curTime.min -= 60;
-  }
-
-  curTime.hour += addedTimeHour;
-
-  if (curTime.hour >= 12) {
-    curTime.meridiem = curTime.meridiem === "AM" ? "PM" : "AM";
-    curTime.hour -= curTime.hour > 12 ? 12: 0;
-  }
-  return curTime;
-};
-
+// return a string representing a time object, according to 12-hour time rules
 export const timeToString = (time, meridiem) => (
   `${time.hour}:${time.min > 0 ? time.min : "00" } ${meridiem ? time.meridiem : ""}`
 );
 
-// returs true IF timeA occurs on / before timeB, else returns false
+// returns true IF timeA occurs on / before timeB, else returns false
 export const occursBefore = (timeA, timeB, amBeforePm) => {
   if (timeA.hour === timeB.hour && timeA.min === timeB.min && timeA.meridiem === timeB.meridiem) {
     return true;
   }
 
   if (timeA.meridiem !== timeB.meridiem) {
-    return amBeforePm ? timeA.meridiem === "AM" && timeB.meridiem === "PM" :
-      timeA.meridiem === "PM" && timeB.meridiem === "AM";
+    return amBeforePm ?
+      timeA.meridiem === "AM" : timeA.meridiem === "PM";
   }
 
   if (
@@ -44,13 +23,10 @@ export const occursBefore = (timeA, timeB, amBeforePm) => {
     return true;
   }
 
-  if (timeA.min < timeB.min) {
-    return true;
-  }
-
-  return false;
+  return timeA.min < timeB.min ? true : false;
 }
 
+// add time to clock according to 12-hour time rules
 export const addIncrement = (time, increment) => {
   const curTime = Object.assign({}, time);
 
@@ -65,4 +41,35 @@ export const addIncrement = (time, increment) => {
     curTime.hour -= curTime.hour > 12 ? 12: 0;
   }
   return curTime;
+}
+
+
+// === Sorting Utils ===
+
+// sort events by event start time, earlier events first
+export const sortByStartTime = (eventA, eventB) => {
+  if (eventA.start === eventB.start) {
+    if (eventA.end === eventB.end) {
+      return 0;
+    }
+    return eventA.end > eventB.end ? -1 : 1;
+  }
+  return eventA.start < eventB.start ? -1 : 1;
+}
+
+// sort conflictEvents by style values, null or lesser .left values first
+export const sortByStyle = (eventA, eventB) => {
+  if (eventA.val && eventB.val) {
+    if (eventA.val.left === eventB.val.left) {
+      return 0;
+    }
+    return eventA.val.left > eventB.val.left ? -1 : 1;
+  }
+  if (eventA.val) {
+    return 1;
+  }
+  if (eventB.val) {
+    return -1;
+  }
+  return 0;
 }

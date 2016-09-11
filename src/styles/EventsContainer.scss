@@ -1,0 +1,41 @@
+.events-container {
+  position: absolute;
+  width: 600px;
+  margin: 0 10px;
+  z-index: 100;
+
+  .event {
+    z-index: 200;
+    background-color: #FFFFFF;
+    border: 1px solid #DDDDDD;
+    border-left: none;
+
+    .left-border {
+      width: 5px;
+      height: 100%;
+      background-color: #436EA9;
+      float: left;
+    }
+
+    .event-body {
+      width: calc(100% - 5px);
+      height: 100%;
+      display: inline-block;
+    }
+
+    .event-content {
+      margin-top: 5px;
+      margin-left: 10px;
+    }
+
+    .title {
+      color: #436EA9; /* TODO: use variable*/
+      font-size: 0.8em;
+    }
+
+    .location {
+      color: #848484;
+      font-size: 0.6em;
+    }
+  }
+}

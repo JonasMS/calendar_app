@@ -1,6 +1,7 @@
 import React from "react";
 import Event from "./Event";
 import { PIXELS_PER_MIN } from "../constants";
+import "../styles/EventsContainer.scss";
 
 const getRow = (startTime, rows) => (
   rows.reduce((targetRow, row, idx, collection) => {
@@ -44,7 +45,7 @@ const styleEvents = events => {
     curWidth = 100 / conflictingEvents.length;
 
     // sort conflictEvents by style values
-    conflictingEvents.sort((eventA, eventB) => {
+    conflictingEvents.sort((eventA, eventB) => { // TODO: place sorting function in utils
       if (eventA.val && eventB.val) {
         if (eventA.val.left === eventB.val.left) {
           return 0;
@@ -63,21 +64,21 @@ const styleEvents = events => {
       return 0;
     })
     .forEach((innerEvent, innerIdx, innerCollection) => {
+      // Compare and Set style values
       innerEvent.val = innerEvent.val || {};
-
       innerEvent.val.top = innerEvent.start * PIXELS_PER_MIN; // TODO: replace PIXELS_PER_MIN with _PIXELS_PER_MIN = _PIXELS_PER_ROW / INCREMENT)
       innerEvent.val.left = setStyle(innerEvent.val.left, innerIdx * curWidth, "max");
       innerEvent.val.height = (innerEvent.end - innerEvent.start) * PIXELS_PER_MIN;
       innerEvent.val.width = setStyle(innerEvent.val.width, curWidth);
 
+      // Set styles with correct units
       const { top, left, height, width } = innerEvent.val;
-
       innerEvent.style = {
         position: "absolute",
         top: `${top}px`,
         left: `${left}%`,
         height: `${height}px`,
-        width: `${width}%`,
+        width: `calc(${width}% - 2px)`,
       }
     });
     conflictingEvents = [];
@@ -93,17 +94,12 @@ const displayEvents = (events, rowRefs) => (
 
 const EventsContainer = ({events, rowRefs, tbodyRef}) => {
   // debugger;
-  const { top, left, width } = rowRefs[0].getBoundingClientRect();
-  // const realWidth = width - rowRefs[0].style.padding - rowRefs[0].style.margin
+  const { top, left } = rowRefs[0].getBoundingClientRect();
   const { height } = tbodyRef.getBoundingClientRect();
   const style = {
-    position: "absolute",
-    margin: "0 10px", // TODO: define in CSS
-    zIndex: "100",
     top,
     left,
     height,
-    width: `calc(${width}px - 20px)`,
   };
 
   return (

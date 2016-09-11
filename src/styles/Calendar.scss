@@ -6,7 +6,17 @@
 
   .event {
     z-index: 200;
-    background-color: blue;
+    background-color: #FFFFFF;
+    border: 1px solid #DDDDDD;
+    border-left: 5px solid #436EA9;
+
+    .title {
+      color: #436EA9;
+    }
+
+    .sub-title {
+      color: #848484;
+    }
   }
 }
 
@@ -32,10 +42,12 @@ td {
 
   &.event-field {
     width: 620px;
-    background-color: lightgray;
+    background-color: #ECECEC;
+    border-left: 1px solid #D6D6D6;
   }
 }
 
 tfoot td.event-field {
   background-color: white;
+  border-left: none;
 }

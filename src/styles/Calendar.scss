@@ -23,12 +23,37 @@ td {
 
   &.time-field {
     width: 80px;
+    text-align: right;
+
   }
 
   &.event-field {
     width: 620px;
     background-color: #ECECEC;
     border-left: 1px solid #D6D6D6;
+  }
+
+  .time-container {
+    margin-right: 5px;
+
+    div {
+      display: inline-block;
+    }
+  }
+
+  .primary {
+    font-size: .8em;
+  }
+
+  .secondary {
+    color: #B8B8B8;
+    font-size: .6em;
+  }
+
+  .meridiem {
+    margin-left: 5px;
+    color: #B8B8B8;
+    font-size: .6em;
   }
 }
 

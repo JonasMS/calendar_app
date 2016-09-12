@@ -31,10 +31,12 @@ const positionEvents = (events, pixelsPerMin) => {
     .forEach((innerEvent, innerIdx) => {
       // Compare and Set style values
       innerEvent.val = innerEvent.val || {};
-      innerEvent.val.top = innerEvent.start * pixelsPerMin;
-      innerEvent.val.left = innerEvent.val.left || innerIdx * curWidth;
-      innerEvent.val.height = (innerEvent.end - innerEvent.start) * pixelsPerMin;
-      innerEvent.val.width = setStyleVal(innerEvent.val.width, curWidth);
+      innerEvent.val = Object.assign(innerEvent.val, {
+        top: innerEvent.val.top || innerEvent.start * pixelsPerMin,
+        left: innerEvent.val.left || innerIdx * curWidth,
+        height: innerEvent.height || (innerEvent.end - innerEvent.start) * pixelsPerMin,
+        width: setStyleVal(innerEvent.val.width, curWidth),
+      });
 
       // Set styles with correct units
       const { top, left, height, width } = innerEvent.val;
@@ -57,7 +59,7 @@ const displayEvents = (events, pixelsPerMin) => (
 );
 
 const EventsContainer = ({events, _row, _tbody, _pixelsPerMin}) => {
-  const { top, left } = _row.getBoundingClientRect();
+  const { top, left, bottom } = _row.getBoundingClientRect();
   const { height } = _tbody.getBoundingClientRect();
   const style = { top, left, height };
 

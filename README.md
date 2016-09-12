@@ -1,8 +1,22 @@
 # Smartcar Frontend Challenge
 
+## Running - Getting Started
+
+In terminal run the following:
+```sh
+# install dependencies
+$ npm install
+
+# to build the app once
+$ npm run build
+```
+Run index.html in your browser
+
+## Prompt
+
 The purpose of this challenge is to give us a sense of your skills. When assessing coding challenges, we consider a number of different metrics:
 
-1. Does the application meet specifications? 
+1. Does the application meet specifications?
 2. Is the code organized and intelligible?
 3.  Does the code suggest an awareness of best practices? (modularity, 'DRY', time/space complexity ect)
 
@@ -22,7 +36,7 @@ You may structure your code however you like, but you must implement the followi
 ```js
 /**
   * Lay out events for the day.
-  * 
+  *
   * @param {Object[]} events the events to be layed out
   * @param {Number} events.start the number of minutes after 9am when the event starts
   * @param {Number} events.end the number of minutes after 9am when the event ends
